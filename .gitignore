@@ -1,0 +1,16 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables
+.env
+
+# Logs & temp files
+*.log
+*.tmp
+
+# Deployment folders
+.vercel
+.serverless/
