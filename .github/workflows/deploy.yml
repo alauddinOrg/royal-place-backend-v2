@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      id-token: write  # AWS OIDC token generate করার জন্য
+      id-token: write  # AWS OIDC token generate 
       contents: read   # repo access
 
     steps:
@@ -36,7 +36,7 @@ jobs:
       - name: Install Serverless Framework
         run: npm install -g serverless
 
-      # 6️⃣ Serverless Login using token
+      # 6️⃣ Serverless login using license key
       - name: Serverless Login
         run: serverless login --token ${{ secrets.SERVERLESS_ACCESS_KEY }}
 
