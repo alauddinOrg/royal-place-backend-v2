@@ -9,6 +9,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write  # AWS OIDC token generate করার জন্য
+      contents: read   # repo access
+
     steps:
       # 1️⃣ Checkout repository
       - name: Checkout repository
@@ -32,13 +36,13 @@ jobs:
       - name: Install Serverless Framework
         run: npm install -g serverless
 
-      # 6️⃣ Configure AWS credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+      # 6️⃣ Configure AWS credentials via OIDC
+      - name: Configure AWS Credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v5
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
+          role-to-assume: arn:aws:iam::489975610444:role/github-actions-role
+          role-session-name: github-actions-session
 
       # 7️⃣ Deploy using Serverless
       - name: Deploy to AWS Lambda
