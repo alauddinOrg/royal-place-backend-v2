@@ -36,7 +36,11 @@ jobs:
       - name: Install Serverless Framework
         run: npm install -g serverless
 
-      # 6️⃣ Configure AWS credentials via OIDC
+      # 6️⃣ Serverless Login using token
+      - name: Serverless Login
+        run: serverless login --token ${{ secrets.SERVERLESS_ACCESS_KEY }}
+
+      # 7️⃣ Configure AWS credentials via OIDC
       - name: Configure AWS Credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v5
         with:
@@ -44,6 +48,6 @@ jobs:
           role-to-assume: arn:aws:iam::489975610444:role/github-actions-role
           role-session-name: github-actions-session
 
-      # 7️⃣ Deploy using Serverless
+      # 8️⃣ Deploy using Serverless
       - name: Deploy to AWS Lambda
         run: serverless deploy
